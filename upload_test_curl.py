@@ -79,7 +79,6 @@ def prepare_payloads(data):
             elem.update(auto_create)
         payloads.append(elem)
         pointer += chunk_size
-
     return payloads
 
 
