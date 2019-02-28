@@ -107,7 +107,6 @@ def logger(func):
             end = datetime.datetime.now()
             log.write('End ' + func.__name__ + ': ' + str(end))
             log.write('Total ' + func.__name__ + ': ' + str(end - start))
-
     return wrapper
 
 
@@ -122,7 +121,7 @@ def main():
     print(payloads)
     print("_______________________")
     pool2 = mp.Pool(number_of_pools)
-    # pool2.map(upload, payloads)
+    pool2.map(upload, payloads)
     pool2.close()
     pool2.join()
     print("Done")
