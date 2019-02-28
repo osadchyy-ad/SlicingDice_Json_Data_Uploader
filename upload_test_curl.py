@@ -41,18 +41,9 @@ chunk_size = args['chunksize'] if args['chunksize'] is not None else 1
 number_of_pools = args['numberofpools'] if args['numberofpools'] is not None else 1
 auto_create = {"auto-create": ["dimension", "column"]}
 
-# master_key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfX3NhbHQiOiIxNTQ4Njc2Mjc1NDc5IiwicGVybWlzc2lvbl9sZXZlbCI6MywicHJvamVjdF9pZCI6MzEwNDksImNsaWVudF9pZCI6MjQxfQ.JWrYkgdUHsV5y9O8bMfDy6GWWN6uRgDMMxQ8A0DV89k'
-# dimension = 'default'
-# chunk_size = 200
-# number_of_pools = 1
-# filename = 'test.json'
-
 
 def convert_to_format(record):
     insert_data = dict()
-    # print(record)
-    # print(record[args['uuid']])
-
     insert_data['UUID-' + str(record[args['uuid']])] = {'dimension': dimension}
     for elem in record:
         if elem != args['uuid']:
@@ -84,8 +75,8 @@ def prepare_payloads(data):
                 elem.update(data[pointer + n])
             except IndexError:
                 break
-        # if args['autocreate'] is True:
-        elem.update(auto_create)
+        if args['autocreate'] is True:
+            elem.update(auto_create)
         payloads.append(elem)
         pointer += chunk_size
 
@@ -118,8 +109,6 @@ def logger(func):
             log.write('Total ' + func.__name__ + ': ' + str(end - start))
 
     return wrapper
-
-    pass
 
 
 @logger
