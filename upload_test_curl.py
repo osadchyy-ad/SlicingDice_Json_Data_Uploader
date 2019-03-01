@@ -47,7 +47,7 @@ def convert_to_format(record):
     insert_data['UUID-' + str(record[args['uuid']])] = {'dimension': dimension}
     for elem in record:
         if elem != args['uuid']:
-            insert_data['UUID-' + str(record[args['uuid']])].update({elem: record[elem]})
+            insert_data['UUID-' + str(record[args['uuid']])].update({elem.replace('_', ''): record[elem]})
     return insert_data
 
 
@@ -87,14 +87,14 @@ def upload(payload):
     headers = {"Content-Type": "application/json", "Authorization": master_key}
     r = requests.post(url="https://api.slicingdice.com/v1/insert", data=payload, headers=headers)
     try:
-        r = r.json()
+        # r = r.json()
         print(r.json())
     except json.decoder.JSONDecodeError:
-        r = r.text
+        print(r.text)
     while str(r) != '<Response [200]>':
-        print(r.json(), payload)
+        print(r.json(), 'Failed')
         r = requests.post(url="https://api.slicingdice.com/v1/insert", data=payload, headers=headers)
-    print(r, payload)
+    print(r, 'Success')
 
 
 def logger(func):
