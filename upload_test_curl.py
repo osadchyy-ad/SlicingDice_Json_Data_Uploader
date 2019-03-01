@@ -101,11 +101,11 @@ def logger(func):
     def wrapper():
         with open('log.txt', 'a+') as log:
             start = datetime.datetime.now()
-            log.write('Start ' + func.__name__ + ': ' + str(start))
+            log.write('Start ' + func.__name__ + ': ' + str(start) + '\n')
             func()
             end = datetime.datetime.now()
-            log.write('End ' + func.__name__ + ': ' + str(end))
-            log.write('Total ' + func.__name__ + ': ' + str(end - start))
+            log.write('End ' + func.__name__ + ': ' + str(end) + '\n')
+            log.write('Total ' + func.__name__ + ': ' + str(end - start) + '\n')
     return wrapper
 
 
